@@ -1,0 +1,4 @@
+# Includ file path of fiels , folder to be ignored/discarded while commiting code
+
+.env
+/test_1.html  
