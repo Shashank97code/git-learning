@@ -13,12 +13,20 @@
       h1 {
         color: #333;
       }
+      .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px 15px;
+      }
       .command {
         background-color: #fff;
         border: 1px solid #ddd;
         padding: 15px;
         margin-bottom: 10px;
         border-radius: 5px;
+        flex: 1 1 calc(33% - 20px); /* 3 columns */
+        min-width: 250px;
+        box-sizing: border-box;
       }
       .command h2 {
         margin-top: 0;
@@ -33,117 +41,133 @@
       .description {
         margin-top: 10px;
       }
+      @media (max-width: 900px) {
+        .command {
+          flex: 1 1 calc(50% - 20px); /* 2 columns on smaller screens */
+        }
+      }
+      @media (max-width: 600px) {
+        .command {
+          flex: 1 1 100%; /* 1 column on mobile */
+        }
+      }
     </style>
   </head>
   <body>
-    <div style="flex: auto">
+    <div>
       <h1>Basic Git Commands</h1>
-
-      <div class="command">
-        <h2>git init</h2>
-        <pre>git init</pre>
-        <div class="description">
-          Initializes a new Git repository in the current directory.
+      <div class="card-container">
+        <div class="command">
+          <h2>git init</h2>
+          <pre>git init</pre>
+          <div class="description">
+            Initializes a new Git repository in the current directory. This
+            creates a hidden <code>.git</code> folder that tracks all version
+            history and configuration for your project.
+          </div>
         </div>
-      </div>
-
-      <div class="command">
-        <h2>git clone</h2>
-        <pre>git clone &lt;repository-url&gt;</pre>
-        <div class="description">
-          Creates a copy of an existing repository from a remote source.
+        <div class="command">
+          <h2>git clone</h2>
+          <pre>git clone &lt;repository-url&gt;</pre>
+          <div class="description">
+            Creates a local copy of an existing remote repository. Downloads all
+            files, history, and branches from the specified URL.
+          </div>
         </div>
-      </div>
-
-      <div class="command">
-        <h2>git add</h2>
-        <pre>git add &lt;file&gt; </pre>
-        <div class="description">
-          Adds changes in the specified file to the staging area.
+        <div class="command">
+          <h2>git add</h2>
+          <pre>git add &lt;file&gt;</pre>
+          <div class="description">
+            Stages changes in the specified file, preparing them to be
+            committed. The file will be included in the next commit.
+          </div>
+          <pre>git add .</pre>
+          <div class="description">
+            Stages all modified and new files in the current directory and its
+            subdirectories for the next commit.
+          </div>
         </div>
-        <pre>git add . (all files at time)</pre>
-        <div class="description">
-          Adds changes of all files to the staging area.
+        <div class="command">
+          <h2>git commit</h2>
+          <pre>git commit -m "Your commit message"</pre>
+          <div class="description">
+            Records the staged changes to the repository with a descriptive
+            message. Each commit creates a unique snapshot of your project.
+          </div>
         </div>
-      </div>
-
-      <div class="command">
-        <h2>git commit</h2>
-        <pre>git commit -m "Your commit message"</pre>
-
-        <div class="description">
-          Commits the staged changes to the repository with a descriptive
-          message.
+        <div class="command">
+          <h2>git status</h2>
+          <pre>git status</pre>
+          <div class="description">
+            Displays the current state of the working directory and staging
+            area. Shows which files are modified, staged, or untracked.
+          </div>
         </div>
-      </div>
-
-      <div class="command">
-        <h2>git status</h2>
-        <pre>git status</pre>
-        <div class="description">
-          Displays the state of the working directory and staging area.
+        <div class="command">
+          <h2>git push</h2>
+          <pre>git push &lt;remote&gt; &lt;branch&gt;</pre>
+          <div class="description">
+            Uploads local commits from the specified branch to a remote
+            repository, making your changes available to others.
+          </div>
         </div>
-      </div>
-
-      <div class="command">
-        <h2>git push</h2>
-        <pre>git push &lt;remote&gt; &lt;branch&gt;</pre>
-        <div class="description">
-          Uploads local repository content to a remote repository.
+        <div class="command">
+          <h2>git pull</h2>
+          <pre>git pull &lt;remote&gt; &lt;branch&gt;</pre>
+          <div class="description">
+            Fetches new commits from the specified remote branch and merges them
+            into your current branch, updating your local repository.
+          </div>
         </div>
-      </div>
-
-      <div class="command">
-        <h2>git pull</h2>
-        <pre>git pull &lt;remote&gt; &lt;branch&gt;</pre>
-        <div class="description">
-          Fetches and integrates changes from a remote repository to the current
-          branch.
+        <div class="command">
+          <h2>git branch</h2>
+          <pre>git branch</pre>
+          <div class="description">
+            Lists all local branches in the repository. The current branch is
+            highlighted with an asterisk.
+          </div>
         </div>
-      </div>
-
-      <div class="command">
-        <h2>git branch</h2>
-        <pre>git branch</pre>
-        <div class="description">
-          Lists all local branches in the repository.
+        <div class="command">
+          <h2>git checkout</h2>
+          <pre>git checkout &lt;branch&gt;</pre>
+          <div class="description">
+            Switches to the specified branch, updating the working directory to
+            match its state.
+          </div>
+          <pre>git checkout -b &lt;branch&gt;</pre>
+          <div class="description">
+            Creates a new branch with the given name and immediately switches to
+            it.
+          </div>
         </div>
-      </div>
-
-      <div class="command">
-        <h2>git checkout</h2>
-        <pre>git checkout &lt;branch&gt;</pre>
-        <div class="description">Switches to the specified branch.</div>
-
-        <pre>git checkout -b &lt;branch&gt;</pre>
-        <div class="description">Switches to the newly created branch.</div>
-      </div>
-
-      <div class="command">
-        <h2>git merge</h2>
-        <pre>git merge &lt;branch&gt;</pre>
-        <div class="description">
-          Merges the specified branch into the current branch.
+        <div class="command">
+          <h2>git merge</h2>
+          <pre>git merge &lt;branch&gt;</pre>
+          <div class="description">
+            Integrates changes from the specified branch into the current
+            branch, combining their histories.
+          </div>
         </div>
-      </div>
-
-      <div class="command">
-        <h2>git log</h2>
-        <pre>git log</pre>
-        <div class="description">
-          Shows the commit history for the repository.
+        <div class="command">
+          <h2>git log</h2>
+          <pre>git log</pre>
+          <div class="description">
+            Shows the commit history for the repository, including commit
+            hashes, authors, dates, and messages.
+          </div>
+          <pre>git log --oneline</pre>
+          <div class="description">
+            Displays the commit history in a condensed, one-line-per-commit
+            format for easier reading.
+          </div>
         </div>
-        <pre>git log --oneline</pre>
-        <div class="description">
-          Shows the commit history for the repository in 1 line.
-        </div>
-      </div>
-
-      <div class="command">
-        <h2>git remote</h2>
-        <pre>git remote -v</pre>
-        <div class="description">
-          Lists the remote repositories associated with the local repository.
+        <div class="command">
+          <h2>git remote</h2>
+          <pre>git remote -v</pre>
+          <div class="description">
+            Lists the short names and URLs of remote repositories connected to
+            your local repository, showing where you can push or pull code.
+          </div>
         </div>
       </div>
     </div>
